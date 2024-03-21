@@ -2,7 +2,7 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## TODO and comments
+## TODO
 
 1. Better organization of files and folder structure.
 2. Clean imports with aliases and paths (tsconfig).

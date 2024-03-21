@@ -12,6 +12,7 @@ import {
 } from "./CharactersFilters";
 import {CharactersTable} from "./CharactersTable";
 import {useApi} from "../../../hooks/useApi";
+import {LoadingInfo} from "../../ui/LoadingInfo";
 
 export function CharactersListPage() {
   const [query, setQuery] = useState<CharactersQuery>(defaultQuery);
@@ -73,17 +74,24 @@ export function CharactersListPage() {
 
       <CharactersFilters defaultQuery={query} onChange={setQuery} />
 
-      {data && (
-        <div style={{opacity: isLoading ? 0.3 : 1}}>
-          <CharactersTable rows={data} />
-        </div>
-      )}
+      {
+        isLoading ? <LoadingInfo />
+          : (
+            <>
+              {data && (
+                <div style={{opacity: isLoading ? 0.3 : 1}}>
+                  <CharactersTable rows={data} />
+                </div>
+              )}
 
-      {initialized && data?.length === 0 && (
-        <Alert sx={{mt: 2}} severity="info">
-          <>No results.</>
-        </Alert>
-      )}
+              {initialized && !data?.length && (
+                <Alert sx={{mt: 2}} severity="info">
+                  <>No results.</>
+                </Alert>
+              )}
+            </>
+          )
+      }
 
       {pagination && (
         <div>
